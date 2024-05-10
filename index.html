@@ -169,6 +169,18 @@
           key: 'onShowFileChooser',
           fn: () => {},
         },
+        {
+          key: 'email',
+          fn: () => {
+            location.href = 'mailto:test@example.com';
+          },
+        },
+        {
+          key: 'tel',
+          fn: () => {
+            location.href = 'tel:+8610086';
+          },
+        },
       ];
       const fragment = document.createDocumentFragment();
       methods.forEach(item => {
