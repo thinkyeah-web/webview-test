@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webview Test</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div id="method-list"></div>
+    </div>
+    <script>
+      const listEl = document.querySelector('#method-list');
+      let myWindow = null;
+      const methods = [
+        // {
+        //   key: 'getDefaultVideoPoster',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'getVideoLoadingProgressView',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'getVisitedHistory',
+        //   fn: () => {},
+        // },
+        {
+          key: 'onCreateWindow',
+          fn: () => {
+            myWindow = window.open('https://www.baidu.com/', 'testPopup', 'popup');
+          },
+        },
+        {
+          key: 'onCloseWindow',
+          fn: () => {
+            if (myWindow) {
+              myWindow.close();
+              myWindow = null;
+            } else {
+              alert('请先点击 onCreateWindow 创建 window');
+            }
+          },
+        },
+        {
+          key: 'onConsoleMessage',
+          fn: () => {
+            console.log('onConsoleMessage');
+          },
+        },
+        {
+          key: 'onExceededDatabaseQuota',
+          fn: () => {},
+        },
+        {
+          key: 'onGeolocationPermissionsShowPrompt',
+          fn: () => {
+            navigator.geolocation.getCurrentPosition(
+              pos => {
+                console.log(pos.coords.latitude, pos.coords.longitude);
+              },
+              err => {
+                console.log(err.message);
+              }
+            );
+          },
+        },
+        // {
+        //   key: 'onGeolocationPermissionsHidePrompt',
+        //   fn: () => {
+        //     alert('请点击 onGeolocationPermissionsShowPrompt 获取权限');
+        //   },
+        // },
+        {
+          key: 'onShowCustomView',
+          fn: () => {
+            if (!document.fullscreenElement) {
+              document.body.requestFullscreen();
+            }
+          },
+        },
+        {
+          key: 'onHideCustomView',
+          fn: () => {
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              alert('请先点击 onShowCustomView 进入全屏');
+            }
+          },
+        },
+        {
+          key: 'onJsAlert',
+          fn: () => {
+            alert('onJsAlert');
+          },
+        },
+        {
+          key: 'onJsBeforeUnload',
+          fn: () => {
+            const listener = event => {
+              // Recommended
+              event.preventDefault();
+
+              // Included for legacy support, e.g. Chrome/Edge < 119
+              event.returnValue = true;
+              window.removeEventListener('beforeunload', listener);
+            };
+            window.addEventListener('beforeunload', listener);
+            location.href = '/';
+          },
+        },
+        {
+          key: 'onJsConfirm',
+          fn: () => {
+            confirm('onJsConfirm');
+          },
+        },
+        {
+          key: 'onJsPrompt',
+          fn: () => {
+            prompt('onJsPrompt');
+          },
+        },
+        // {
+        //   key: 'onJsTimeout',
+        //   fn: () => {},
+        // },
+        {
+          key: 'onPermissionRequest',
+          fn: () => {
+            navigator.mediaDevices
+              .getUserMedia({ audio: true, video: true })
+              .then(e => {
+                console.log(e);
+              })
+              .catch(e => {
+                console.log(e);
+              });
+          },
+        },
+        // {
+        //   key: 'onPermissionRequestCanceled',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'onProgressChanged',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'onReceivedIcon',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'onReceivedTitle',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'onReceivedTouchIconUrl',
+        //   fn: () => {},
+        // },
+        // {
+        //   key: 'onRequestFocus',
+        //   fn: () => {},
+        // },
+
+        {
+          key: 'onShowFileChooser',
+          fn: () => {},
+        },
+      ];
+      const fragment = document.createDocumentFragment();
+      methods.forEach(item => {
+        const button = document.createElement('button');
+        const span = document.createElement('span');
+        span.innerText = item.key;
+        button.appendChild(span);
+        button.onclick = item.fn;
+        if (item.key === 'onShowFileChooser') {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.style.opacity = 0;
+          button.appendChild(input);
+        }
+        fragment.appendChild(button);
+      });
+      listEl.appendChild(fragment);
+    </script>
+  </body>
+</html>
