@@ -1,0 +1,17 @@
+{
+  "name": "webview-test-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "koa": "^2.15.3",
+    "tsscmp": "^1.0.6"
+  }
+}

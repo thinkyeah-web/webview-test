@@ -27,6 +27,9 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+button[disabled] {
+  cursor: not-allowed;
+}
 button > input {
   position: absolute;
   opacity: 0;

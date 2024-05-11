@@ -49,10 +49,10 @@
             console.log('onConsoleMessage');
           },
         },
-        {
-          key: 'onExceededDatabaseQuota',
-          fn: () => {},
-        },
+        // {
+        //   key: 'onExceededDatabaseQuota',
+        //   fn: () => {},
+        // },
         {
           key: 'onGeolocationPermissionsShowPrompt',
           fn: () => {
@@ -181,6 +181,23 @@
             location.href = 'tel:+8610086';
           },
         },
+        // {
+        //   key: 'onHttpAuth',
+        //   fn: () => {
+        //     return fetch('https://www.dia-pen.hr/orbicon/3rdParty/rad-plus/test.html', {
+        //       credentials: 'include',
+        //     })
+        //       .then(res => {
+        //         return res.text();
+        //       })
+        //       .then(res => {
+        //         alert(res);
+        //       })
+        //       .catch(e => {
+        //         alert(e.message);
+        //       });
+        //   },
+        // },
       ];
       const fragment = document.createDocumentFragment();
       methods.forEach(item => {
@@ -188,7 +205,17 @@
         const span = document.createElement('span');
         span.innerText = item.key;
         button.appendChild(span);
-        button.onclick = item.fn;
+        button.onclick = () => {
+          button.disabled = true;
+          const promise = item.fn();
+          if (promise) {
+            promise.finally(() => {
+              button.disabled = false;
+            });
+          } else {
+            button.disabled = false;
+          }
+        };
         if (item.key === 'onShowFileChooser') {
           const input = document.createElement('input');
           input.type = 'file';
