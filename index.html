@@ -30,7 +30,7 @@
           key: 'onCreateWindow',
           fn: () => {
             myWindow = window.open('https://www.google.com/', 'testPopup', 'popup');
-          },
+          }
         },
         {
           key: 'onCloseWindow',
@@ -41,13 +41,13 @@
             } else {
               alert('请先点击 onCreateWindow 创建 window');
             }
-          },
+          }
         },
         {
           key: 'onConsoleMessage',
           fn: () => {
             console.log('onConsoleMessage');
-          },
+          }
         },
         // {
         //   key: 'onExceededDatabaseQuota',
@@ -64,7 +64,7 @@
                 console.log(err.message);
               }
             );
-          },
+          }
         },
         // {
         //   key: 'onGeolocationPermissionsHidePrompt',
@@ -78,7 +78,7 @@
             if (!document.fullscreenElement) {
               document.body.requestFullscreen();
             }
-          },
+          }
         },
         {
           key: 'onHideCustomView',
@@ -88,13 +88,13 @@
             } else {
               alert('请先点击 onShowCustomView 进入全屏');
             }
-          },
+          }
         },
         {
           key: 'onJsAlert',
           fn: () => {
             alert('onJsAlert');
-          },
+          }
         },
         {
           key: 'onJsBeforeUnload',
@@ -109,19 +109,19 @@
             };
             window.addEventListener('beforeunload', listener);
             location.href = '/';
-          },
+          }
         },
         {
           key: 'onJsConfirm',
           fn: () => {
             confirm('onJsConfirm');
-          },
+          }
         },
         {
           key: 'onJsPrompt',
           fn: () => {
             prompt('onJsPrompt');
-          },
+          }
         },
         // {
         //   key: 'onJsTimeout',
@@ -138,7 +138,7 @@
               .catch(e => {
                 console.log(e);
               });
-          },
+          }
         },
         // {
         //   key: 'onPermissionRequestCanceled',
@@ -167,20 +167,26 @@
 
         {
           key: 'onShowFileChooser',
-          fn: () => {},
+          fn: () => {}
         },
         {
           key: 'email',
           fn: () => {
             location.href = 'mailto:test@example.com';
-          },
+          }
         },
         {
           key: 'tel',
           fn: () => {
             location.href = 'tel:+8610086';
-          },
+          }
         },
+        {
+          key: 'ssl error test',
+          fn: () => {
+            window.open('https://badssl.com/');
+          }
+        }
         // {
         //   key: 'onHttpAuth',
         //   fn: () => {
